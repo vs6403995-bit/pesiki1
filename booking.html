@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Песики — запись</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <header class="wa-header">
+    <div class="wrap">
+      <div class="brand-line">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Песики</span>
+        <span class="brand-tag">Запись</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <form id="form" class="form">
+      <section class="group">
+        <h2>Услуга</h2>
+        <label class="label">Направление
+          <select id="category" class="field">
+            <option value="">Выберите</option>
+            <option value="vet">Вет‑услуги</option>
+            <option value="groom">Груминг</option>
+          </select>
+        </label>
+        <label class="label">Услуга
+          <select id="service" class="field" disabled>
+            <option value="">Сначала выберите направление</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="group">
+        <h2>Место и специалист</h2>
+        <label class="label">Филиал
+          <select id="branch" class="field" disabled>
+            <option value="">Загружаем...</option>
+          </select>
+        </label>
+        <label class="label">Специалист
+          <select id="staff" class="field" disabled>
+            <option value="">Сначала выберите филиал</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="group">
+        <h2>Дата и время</h2>
+        <div class="grid-2">
+          <label class="label">Дата
+            <input id="date" type="date" class="field" min="" disabled>
+          </label>
+          <label class="label">Время
+            <select id="time" class="field" disabled>
+              <option value="">Сначала выберите дату</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="group">
+        <h2>Питомец</h2>
+        <label class="label">Выберите питомца
+          <select id="pet" class="field">
+            <option value="">Ввести вручную</option>
+          </select>
+        </label>
+        <label class="label">Имя питомца
+          <input id="pet_name" class="field" placeholder="Бим">
+        </label>
+        <label class="label">Примечание
+          <textarea id="notes" class="field" rows="3" placeholder="Опционально"></textarea>
+        </label>
+      </section>
+
+      <div class="note muted" id="hint">Заполните поля — кнопка “Записаться” станет активной.</div>
+    </form>
+  </main>
+
+  <script src="booking.js"></script>
+</body>
+</html>
