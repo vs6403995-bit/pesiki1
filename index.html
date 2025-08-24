@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Песики — ветклиника и груминг</title>
+  <meta name="description" content="Осмотры, вакцинация, диагностика и груминг. Онлайн‑запись, напоминания, карта клиента.">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">Песики</span><span class="brand-tag">Ветклиника • Груминг</span></a>
+    <nav class="menu" aria-label="Навигация">
+      <a href="services.html">Услуги</a>
+      <a href="branches.html">Филиалы</a>
+      <a class="btn" href="contact.html">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Забота о питомце — вовремя и без спешки</h1>
+        <p class="lead">Осмотры, вакцинация, диагностика и груминг. Удобная запись, напоминания, единая карта клиента.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="services.html">Выбрать услугу</a>
+          <a class="btn outline" href="contact.html">Связаться</a>
+        </div>
+        <div class="checker">
+          <label for="zip">Проверить доступность по адресу</label>
+          <div class="input">
+            <input id="zip" placeholder="Индекс или улица">
+            <button class="btn" id="zipCheck">Проверить</button>
+          </div>
+          <div id="zipResult" class="note"></div>
+        </div>
+      </div>
+      <div class="hero-card paper">
+        <h3>Основные направления</h3>
+        <ul class="bullet">
+          <li>Терапия, вакцинация, УЗИ, анализы</li>
+          <li>Груминг: стрижка, тримминг, уход</li>
+          <li>Напоминания и профилактика</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ink-bg" aria-hidden="true"></div>
+  </section>
+
+  <section class="wrap section">
+    <h2>Почему выбирают нас</h2>
+    <div class="grid-3">
+      <div class="card"><h4>Внимательный приём</h4><p>Чёткие разъяснения и план действий. Все рекомендации фиксируются в карте клиента.</p></div>
+      <div class="card"><h4>Прозрачное время</h4><p>Запись на конкретный слот. Напоминания за 24 и 3 часа, быстрый перенос.</p></div>
+      <div class="card"><h4>Современная диагностика</h4><p>УЗИ и анализы по показаниям. Без лишних назначений.</p></div>
+    </div>
+    <div class="center mt">
+      <a class="btn primary" href="services.html">Перейти к услугам</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div><div class="brand-mini">Песики</div><div class="muted">© 2025</div></div>
+    <nav class="footer-menu">
+      <a class="active" href="index.html">Главная</a>
+      <a href="services.html">Услуги</a>
+      <a href="branches.html">Филиалы</a>
+      <a href="contact.html">Контакты</a>
+    </nav>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="assets/main.js"></script>
+</body>
+</html>
