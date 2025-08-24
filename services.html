@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Песики — услуги и планы</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">Песики</span><span class="brand-tag">Ветклиника • Груминг</span></a>
+    <nav class="menu">
+      <a class="active" href="services.html">Услуги</a>
+      <a href="branches.html">Филиалы</a>
+      <a class="btn" href="contact.html">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="section">
+    <h1>Услуги</h1>
+    <div class="grid-3">
+      <div class="card paper">
+        <h3>Вет‑осмотр</h3>
+        <ul class="bullet"><li>Первичный и повторный приём</li><li>Рекомендации по уходу</li></ul>
+        <div class="price">1 200–2 000 ₽</div>
+        <div class="cta-row"><a class="btn primary" href="contact.html#form">Записаться</a><a class="btn outline" href="contact.html#faq">Вопросы</a></div>
+      </div>
+      <div class="card paper">
+        <h3>Вакцинация</h3>
+        <ul class="bullet"><li>Индивидуальный календарь</li><li>Напоминания и отметки</li></ul>
+        <div class="price">1 000–3 000 ₽</div>
+        <div class="cta-row"><a class="btn primary" href="contact.html#form">Записаться</a></div>
+      </div>
+      <div class="card paper">
+        <h3>Диагностика</h3>
+        <ul class="bullet"><li>УЗИ и анализы по показаниям</li><li>Чёткие заключения</li></ul>
+        <div class="price">По согласованию</div>
+        <div class="cta-row"><a class="btn primary" href="contact.html#form">Записаться</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section paper card" id="plans">
+    <h2>Планы обслуживания</h2>
+    <div class="plan-row">
+      <div class="switch" role="tablist" aria-label="Частота">
+        <button id="pWeekly" class="active" role="tab" aria-selected="true">Еженедельно</button>
+        <button id="pBi" role="tab" aria-selected="false">Раз в 2 недели</button>
+      </div>
+      <div class="price" id="price">от 1 200 ₽</div>
+    </div>
+    <div class="addons">
+      <label class="chk"><input type="checkbox" id="adNails"> Когти</label>
+      <label class="chk"><input type="checkbox" id="adEars"> Уши</label>
+      <label class="chk"><input type="checkbox" id="adTeeth"> Зубы</label>
+    </div>
+    <div class="grid-2 mt">
+      <div class="card">План “Вет”: осмотры и вакцинация по возрасту, напоминания, связь с врачом.</div>
+      <div class="card">План “Грум”: стрижка/тримминг каждые 4–8 недель, базовый уход.</div>
+    </div>
+    <div class="center mt">
+      <a class="btn primary" href="contact.html#form">Присоединиться</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div><div class="brand-mini">Песики</div><div class="muted">© 2025</div></div>
+    <nav class="footer-menu">
+      <a href="index.html">Главная</a>
+      <a class="active" href="services.html">Услуги</a>
+      <a href="branches.html">Филиалы</a>
+      <a href="contact.html">Контакты</a>
+    </nav>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="assets/main.js"></script>
+</body>
+</html>
