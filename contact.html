@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Песики — контакты и FAQ</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><span class="brand-mark"></span><span class="brand-name">Песики</span><span class="brand-tag">Ветклиника • Груминг</span></a>
+    <nav class="menu">
+      <a href="services.html">Услуги</a>
+      <a href="branches.html">Филиалы</a>
+      <a class="btn active" href="contact.html">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="section" id="contact">
+    <h1>Контакты</h1>
+    <div class="grid-2">
+      <div class="paper card">
+        <div class="muted">Телефон</div><div class="lead">+7 (900) 000‑00‑00</div>
+        <div class="muted mt-sm">Адрес</div><div>г. Екатеринбург, ул. Примерная, 1</div>
+        <div class="muted mt-sm">График</div><div>Пн–Пт 08:00–21:00, Сб–Вс 09:00–20:00</div>
+      </div>
+      <form class="paper card" id="form">
+        <h3>Напишите нам</h3>
+        <label class="label">Имя<input required name="name" class="field" placeholder="Ваше имя"></label>
+        <label class="label">Телефон<input required name="phone" class="field" placeholder="+7 900 000‑00‑00"></label>
+        <label class="label">Сообщение<textarea name="msg" class="field" rows="4" placeholder="Коротко опишите вопрос"></textarea></label>
+        <div class="cta-row"><button class="btn primary" type="submit">Отправить</button><a class="btn outline" href="services.html">Выбрать услугу</a></div>
+        <div id="formResult" class="note"></div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <h2>FAQ</h2>
+    <details class="faq"><summary>Как проходит запись?</summary><div>Вы выбираете услугу, филиал, специалиста и время. Подтверждение приходит сразу.</div></details>
+    <details class="faq"><summary>Нужна ли предоплата?</summary><div>Сейчас — нет. Оплата на месте после оказания услуги.</div></details>
+    <details class="faq"><summary>Как подготовить питомца?</summary><div>Для приёма — паспорт и список лекарств. Для груминга — чистая сухая шерсть без колтунов.</div></details>
+  </section>
+
+  <section class="section" id="policy">
+    <h2>Политика конфиденциальности</h2>
+    <p class="muted">Обрабатываем контактные данные и сведения о питомцах исключительно для оказания услуг клиники. По запросу данные удаляются.</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div><div class="brand-mini">Песики</div><div class="muted">© 2025</div></div>
+    <nav class="footer-menu">
+      <a href="index.html">Главная</a>
+      <a href="services.html">Услуги</a>
+      <a href="branches.html">Филиалы</a>
+      <a class="active" href="contact.html">Контакты</a>
+    </nav>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="assets/main.js"></script>
+</body>
+</html>
