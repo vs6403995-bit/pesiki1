@@ -18,3 +18,5 @@ h2{font-family:"Cormorant Garamond",serif;font-weight:700;margin:8px 0 8px}
 @media(max-width:680px){.grid-2{grid-template-columns:1fr}}
 .muted{color:var(--muted)}
 .note{margin-top:8px}
+
+.field.error{ border-color:#c0392b !important; box-shadow:0 0 0 3px rgba(192,57,43,.12) !important; }
