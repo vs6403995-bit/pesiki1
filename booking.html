@@ -21,67 +21,77 @@
   </header>
 
   <main class="wrap">
-    <form id="form" class="form">
-      <section class="group">
+    <form id="form" class="form" autocomplete="off">
+      <section class="group card">
         <h2>Услуга</h2>
-        <label class="label">Направление
-          <select id="category" class="field">
-            <option value="">Выберите</option>
-            <option value="vet">Вет‑услуги</option>
-            <option value="groom">Груминг</option>
-          </select>
-        </label>
-        <label class="label">Услуга
-          <select id="service" class="field" disabled>
-            <option value="">Сначала выберите направление</option>
-          </select>
-        </label>
-      </section>
-
-      <section class="group">
-        <h2>Место и специалист</h2>
-        <label class="label">Филиал
-          <select id="branch" class="field" disabled>
-            <option value="">Загружаем...</option>
-          </select>
-        </label>
-        <label class="label">Специалист
-          <select id="staff" class="field" disabled>
-            <option value="">Сначала выберите филиал</option>
-          </select>
-        </label>
-      </section>
-
-      <section class="group">
-        <h2>Дата и время</h2>
         <div class="grid-2">
-          <label class="label">Дата
-            <input id="date" type="date" class="field" min="" disabled>
+          <label class="label">Направление
+            <select id="category" class="field select">
+              <option value="" data-ph>— выбрать —</option>
+              <option value="vet">Вет‑услуги</option>
+              <option value="groom">Груминг</option>
+            </select>
           </label>
-          <label class="label">Время
-            <select id="time" class="field" disabled>
-              <option value="">Сначала выберите дату</option>
+          <label class="label">Услуга
+            <select id="service" class="field select" disabled>
+              <option value="" data-ph>Сначала выберите направление</option>
             </select>
           </label>
         </div>
       </section>
 
-      <section class="group">
+      <section class="group card">
+        <h2>Место и специалист</h2>
+        <div class="grid-2">
+          <label class="label">Филиал
+            <select id="branch" class="field select" disabled>
+              <option value="" data-ph>Загружаем…</option>
+            </select>
+          </label>
+          <label class="label">Специалист
+            <select id="staff" class="field select" disabled>
+              <option value="" data-ph>Сначала выберите филиал</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="group card">
+        <h2>Дата и время</h2>
+        <div class="grid-2">
+          <label class="label">Дата
+            <input id="date" type="date" class="field" min="">
+          </label>
+          <label class="label">Время
+            <select id="time" class="field select" disabled>
+              <option value="" data-ph>Сначала выберите дату</option>
+            </select>
+          </label>
+        </div>
+        <div class="hint muted" id="dateHint"></div>
+      </section>
+
+      <section class="group card">
         <h2>Питомец</h2>
-        <label class="label">Выберите питомца
-          <select id="pet" class="field">
-            <option value="">Ввести вручную</option>
-          </select>
-        </label>
-        <label class="label">Имя питомца
-          <input id="pet_name" class="field" placeholder="Бим">
-        </label>
+        <div class="grid-2">
+          <label class="label">Выберите питомца
+            <select id="pet" class="field select">
+              <option value="" data-ph>Ввести вручную</option>
+            </select>
+          </label>
+          <label class="label">Имя питомца
+            <input id="pet_name" class="field" placeholder="Бим">
+          </label>
+        </div>
         <label class="label">Примечание
           <textarea id="notes" class="field" rows="3" placeholder="Опционально"></textarea>
         </label>
       </section>
 
-      <div class="note muted" id="hint">Заполните поля — кнопка “Записаться” станет активной.</div>
+      <div class="bar">
+        <div class="note muted" id="hint">Заполните поля — кнопка “Записаться” станет активной.</div>
+        <button class="btn ghost" type="button" id="reset">Сбросить</button>
+      </div>
     </form>
   </main>
 
