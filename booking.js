@@ -13,7 +13,6 @@ const els = {
   staff: document.getElementById('staff'),
   date: document.getElementById('date'),
   time: document.getElementById('time'),
-  pet: document.getElementById('pet'),
   pet_name: document.getElementById('pet_name'),
   notes: document.getElementById('notes'),
   hint: document.getElementById('hint'),
@@ -21,11 +20,11 @@ const els = {
   reset: document.getElementById('reset'),
 };
 
-// today min
+// min date = сегодня (с учётом таймзоны клиента)
 const now = new Date();
 els.date.min = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,10);
 
-// demo data (заменим на API позже)
+// демо-справочники (подменим на API позже)
 const services = [
   { id:'1', category:'vet', name:'Осмотр', dur:20 },
   { id:'2', category:'vet', name:'Вакцинация', dur:20 },
@@ -39,7 +38,6 @@ const staff = [
   { id:'s3', name:'Анна', role:'groom', branch_id:'b1' },
   { id:'s4', name:'Ольга', role:'groom', branch_id:'b2' },
 ];
-let userPets = []; // подключим позже через startapp
 
 function setOptions(select, items, placeholder, keepPlaceholder=false){
   select.innerHTML = '';
@@ -54,40 +52,32 @@ function setOptions(select, items, placeholder, keepPlaceholder=false){
   });
   select.disabled = items.length===0 && !keepPlaceholder;
 }
-
 function removePlaceholder(select){
   const first = select.querySelector('option[data-ph]');
   if (first) first.remove();
 }
-
 function onSelectRemovePlaceholder(e){
   if (e.target.value) removePlaceholder(e.target);
 }
 
 (function init(){
-  // Заполнить филиалы сразу
   setOptions(els.branch, branches, '— выбрать —');
   els.branch.disabled=false;
 
-  // Питомцы (если будут переданы)
-  const petItems = userPets.map(p=>({id:p.name,name:p.name}));
-  setOptions(els.pet, [{id:'', name:'Ввести вручную'}, ...petItems], '— выбрать —', true);
+  els.category?.addEventListener('change', onCategory);
+  els.branch?.addEventListener('change', onBranch);
+  els.service?.addEventListener('change', validate);
+  els.staff?.addEventListener('change', validate);
+  els.date?.addEventListener('change', onDate);
+  els.time?.addEventListener('change', validate);
 
-  els.category.addEventListener('change', onCategory);
-  els.branch.addEventListener('change', onBranch);
-  els.service.addEventListener('change', validate);
-  els.staff.addEventListener('change', validate);
-  els.date.addEventListener('change', onDate);
-  els.time.addEventListener('change', validate);
-  els.pet.addEventListener('change', onPetChange);
-  els.pet_name.addEventListener('input', validate);
-  els.notes.addEventListener('input', validate);
-  els.reset.addEventListener('click', resetForm);
-
-  // убирать placeholder после выбора
-  ['category','service','branch','staff','time','pet'].forEach(id=>{
-    els[id].addEventListener('change', onSelectRemovePlaceholder);
+  ['category','service','branch','staff','time'].forEach(id=>{
+    els[id]?.addEventListener('change', onSelectRemovePlaceholder);
   });
+
+  els.pet_name?.addEventListener('input', validate);
+  els.notes?.addEventListener('input', validate);
+  els.reset?.addEventListener('click', resetForm);
 
   if (tg) tg.onEvent('mainButtonClicked', submit);
 })();
@@ -97,8 +87,7 @@ function onCategory(){
   const list=services.filter(s=>s.category===cat).map(s=>({id:s.id,name:s.name}));
   setOptions(els.service, list, list.length? '— выбрать —':'Сначала выберите направление');
   els.service.disabled = list.length===0;
-  // при смене направления стоит обновить специалистов под новый role
-  onBranch();
+  onBranch(); // обновить специалистов под роль
   validate();
 }
 
@@ -112,6 +101,7 @@ function onBranch(){
   validate();
 }
 
+// генерируем слоты и закрываем прошедшие для сегодняшней даты
 function onDate(){
   const v=els.date.value;
   if(!v){
@@ -119,31 +109,47 @@ function onDate(){
     els.time.disabled=true;
     return;
   }
-  // демо-слоты: каждые 30 минут 09:00–15:00
+  const selected = new Date(v+'T00:00');
+  const isToday = isSameDate(selected, new Date());
+  const nowHM = toHM(new Date());
+
   const base=[];
-  for(let h=9; h<=15; h++){
-    base.push(`${String(h).padStart(2,'0')}:00`);
-    if(h<15) base.push(`${String(h).padStart(2,'0')}:30`);
+  for(let h=9; h<=19; h++){
+    base.push(`${pad(h)}:00`);
+    if(h<19) base.push(`${pad(h)}:30`);
   }
-  setOptions(els.time, base.map(t=>({id:t,name:t})), '— выбрать —');
-  els.time.disabled = base.length===0;
-  els.dateHint.textContent='';
+  // фильтрация прошедших слотов для сегодняшней даты
+  const slots = isToday ? base.filter(t => t > nowHM) : base;
+
+  setOptions(els.time, slots.map(t=>({id:t,name:t})), slots.length? '— выбрать —':'Нет свободных слотов');
+  els.time.disabled = slots.length===0;
+  els.dateHint.textContent = slots.length? '' : 'На выбранную дату нет доступных слотов. Выберите другой день.';
   validate();
 }
 
-function onPetChange(){
-  if (els.pet.value){
-    els.pet_name.value = els.pet.value;
-  } else if (!els.pet_name.value){
-    els.pet_name.value = '';
-  }
-  validate();
-}
+function isSameDate(a,b){ return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+function pad(n){ return String(n).padStart(2,'0'); }
+function toHM(d){ return `${pad(d.getHours())}:${pad(d.getMinutes())}`; }
 
 function validate(){
+  // очистить прошлые ошибки
+  [els.category,els.service,els.branch,els.staff,els.date,els.time,els.pet_name].forEach(el=>el?.classList.remove('error'));
+
   const ok = !!(els.category.value && els.service.value && els.branch.value &&
                 els.staff.value && els.date.value && els.time.value &&
-                (els.pet.value || els.pet_name.value.trim().length>=2));
+                els.pet_name.value.trim().length>=2);
+
+  if (!ok){
+    // подсветка конкретных пустых полей
+    if(!els.category.value) els.category.classList.add('error');
+    if(!els.service.value)  els.service.classList.add('error');
+    if(!els.branch.value)   els.branch.classList.add('error');
+    if(!els.staff.value)    els.staff.classList.add('error');
+    if(!els.date.value)     els.date.classList.add('error');
+    if(!els.time.value)     els.time.classList.add('error');
+    if(els.pet_name.value.trim().length<2) els.pet_name.classList.add('error');
+  }
+
   els.hint.textContent = ok ? 'Проверьте данные и нажмите “Записаться”.' : 'Заполните поля — кнопка “Записаться” станет активной.';
   if (tg) tg.MainButton.setParams({ is_visible: ok });
 }
@@ -157,17 +163,21 @@ function submit(){
     staff_id:els.staff.value,
     date:els.date.value,
     time:els.time.value,
-    pet_name: els.pet.value || els.pet_name.value.trim(),
+    pet_name: els.pet_name.value.trim(),
     notes: els.notes.value.trim()
   };
   if (tg) tg.sendData(JSON.stringify(payload));
 }
 
 function resetForm(){
-  els.category.value=''; els.service.innerHTML='<option value="" data-ph>Сначала выберите направление</option>'; els.service.disabled=true;
-  els.branch.value='';  els.staff.innerHTML='<option value="" data-ph>Сначала выберите филиал</option>'; els.staff.disabled=true;
-  els.date.value='';    els.time.innerHTML='<option value="" data-ph>Сначала выберите дату</option>'; els.time.disabled=true;
-  els.pet.value='';     els.pet_name.value=''; els.notes.value='';
+  els.category.value='';
+  els.service.innerHTML='<option value="" data-ph>Сначала выберите направление</option>'; els.service.disabled=true;
+  els.branch.value='';
+  els.staff.innerHTML='<option value="" data-ph>Сначала выберите филиал</option>'; els.staff.disabled=true;
+  els.date.value='';
+  els.time.innerHTML='<option value="" data-ph>Сначала выберите дату</option>'; els.time.disabled=true;
+  els.pet_name.value=''; els.notes.value='';
+  [els.category,els.service,els.branch,els.staff,els.date,els.time,els.pet_name].forEach(el=>el?.classList.remove('error'));
   els.hint.textContent='Заполните поля — кнопка “Записаться” станет активной.';
   if (tg) tg.MainButton.setParams({ is_visible:false });
 }
